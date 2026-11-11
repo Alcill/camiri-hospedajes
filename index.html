@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Camiri Hospedajes</title>
+<meta name="description" content="Hoteles, hostales y alojamientos de Camiri, Capital Petrolera de Bolivia: fotos, habitaciones, precios y contactos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Paleta: cielo, monte y tierra del Chaco */
+:root {
+  --bg: #f2f5f4;
+  --surface: #ffffff;
+  --ink: #18272b;
+  --muted: #5b6b6e;
+  --line: #d8e0df;
+  --sky: #2f86b3;
+  --sky-soft: #dcecf3;
+  --sun: #d4541f;
+  --sun-soft: #fbe6da;
+  --monte: #3d5b3c;
+  --shade: rgba(14, 24, 27, .55);
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --r: 14px;
+  --ease: cubic-bezier(.23, 1, .32, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f191c; --surface: #172428; --ink: #e8efee; --muted: #9aaeb0; --line: #26373b;
+    --sky: #6db8de; --sky-soft: #173341; --sun: #f0804f; --sun-soft: #3a2116; --monte: #8fb58b;
+    --shade: rgba(0, 0, 0, .6); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f191c; --surface: #172428; --ink: #e8efee; --muted: #9aaeb0; --line: #26373b;
+  --sky: #6db8de; --sky-soft: #173341; --sun: #f0804f; --sun-soft: #3a2116; --monte: #8fb58b;
+  --shade: rgba(0, 0, 0, .6); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+img { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance; margin: 0; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--sky); outline-offset: 3px; }
+.wrap { max-width: 1180px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* Portada */
+.hero { position: relative; overflow: hidden; color: #fff; background: #10201c; isolation: isolate; }
+.hero-fondo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transform: scale(1.06); animation: respira 18s ease-in-out infinite alternate; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(10, 22, 20, .92) 0%, rgba(10, 22, 20, .72) 42%, rgba(10, 22, 20, .2) 75%), linear-gradient(0deg, var(--bg) 0, transparent 18%); }
+.hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: center; gap: 32px; padding-block: clamp(48px, 8vw, 104px) clamp(64px, 9vw, 120px); }
+.hero-texto { min-width: 0; }
+.eyebrow { font: 600 .78rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; }
+.hero .eyebrow { display: inline-flex; align-items: center; gap: .6em; color: #f5c46b; }
+.hero .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
+.hero h1 { font-size: clamp(3rem, 8.4vw, 6.6rem); font-weight: 800; letter-spacing: -.035em; margin-top: .35em; }
+.hero h1 span { display: block; color: #f5c46b; }
+.hero p { max-width: 32rem; font-size: clamp(1.02rem, 1.5vw, 1.18rem); margin: 1.1em 0 0; color: rgba(255,255,255,.88); }
+.stats { display: flex; flex-wrap: wrap; gap: 10px 32px; margin-top: 2rem; font-size: .92rem; color: rgba(255,255,255,.8); }
+.stats b { font: 800 1.7rem/1.1 var(--display); display: block; color: #fff; font-variant-numeric: tabular-nums; }
+
+/* Collage de fotos reales */
+.collage { position: relative; height: clamp(360px, 40vw, 500px); }
+.collage figure { position: absolute; margin: 0; padding: 8px 8px 30px; background: #fbf8f2; border-radius: 4px; box-shadow: 0 24px 50px -20px rgba(0,0,0,.65); transform: rotate(var(--r)); animation: cae .9s var(--ease) both; animation-delay: var(--d); transition: transform .35s var(--ease); }
+.collage figure:hover { transform: rotate(0deg) scale(1.04); z-index: 5; }
+.collage img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+.collage figcaption { position: absolute; left: 10px; right: 10px; bottom: 7px; font: 500 .74rem/1.2 var(--body); color: #3c4744; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.f1 { --r: -5deg; --d: .15s; width: 46%; height: 72%; left: 2%; top: 10%; z-index: 2; }
+.f2 { --r: 4deg; --d: .3s; width: 52%; height: 46%; right: 0; top: 0; z-index: 1; }
+.f3 { --r: -2deg; --d: .45s; width: 50%; height: 48%; right: 4%; bottom: 0; z-index: 3; }
+@keyframes cae { from { opacity: 0; transform: translateY(40px) rotate(calc(var(--r) * 3)) scale(.94); } }
+@keyframes respira { to { transform: scale(1.14) translateX(-2%); } }
+@media (max-width: 820px) {
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); }
+  .collage { height: 300px; max-width: 460px; width: 100%; }
+}
+
+/* Barra de búsqueda */
+.barra { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.barra .wrap { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding-block: 12px; }
+.buscar { flex: 1 1 240px; min-width: 0; position: relative; }
+.buscar input { width: 100%; padding: .75em 1em .75em 2.6em; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); color: var(--ink); font: inherit; }
+.buscar svg { position: absolute; left: 1em; top: 50%; translate: 0 -50%; width: 1.05em; color: var(--muted); }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { border: 1px solid var(--line); background: var(--surface); padding: .5em 1em; border-radius: 99px; font-size: .9rem; font-weight: 500; transition: background .2s ease, color .2s ease, border-color .2s ease, transform .14s var(--ease); }
+.chip:active, .card:active { transform: scale(.97); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* Listado */
+main { padding-block: 24px 64px; }
+.grupo { padding-top: 40px; }
+.grupo-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 2px solid var(--ink); padding-bottom: 10px; margin-bottom: 20px; }
+.grupo-head h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); font-weight: 700; letter-spacing: -.02em; }
+.grupo-head span { color: var(--muted); font-size: .9rem; font-variant-numeric: tabular-nums; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 18px; }
+
+.card { position: relative; display: flex; flex-direction: column; justify-content: flex-end; aspect-ratio: 4 / 5; max-width: 100%; border: 0; padding: 0; text-align: left; border-radius: var(--r); overflow: hidden; background: var(--surface); color: #fff; isolation: isolate; transition: transform .45s var(--ease), box-shadow .45s var(--ease); animation: aparece .7s var(--ease) both; animation-delay: calc(var(--i) * 60ms); }
+.card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -18px rgba(10, 30, 40, .45); }
+.card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .9s var(--ease); }
+.card:hover img { transform: scale(1.05); }
+.card::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, transparent 35%, rgba(10, 20, 24, .85)); }
+.card-body { padding: 18px; display: grid; gap: 6px; }
+.card h3 { font-size: 1.45rem; font-weight: 700; letter-spacing: -.01em; }
+.card .meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: .9rem; color: rgba(255,255,255,.88); }
+.card .desde b { font: 700 1.15rem var(--display); color: #fff; }
+.tag { position: absolute; top: 14px; left: 14px; padding: .35em .75em; border-radius: 99px; font: 600 .72rem/1 var(--body); letter-spacing: .08em; text-transform: uppercase; background: rgba(255,255,255,.9); color: #18272b; }
+.estrellas { color: #ffc96b; letter-spacing: .1em; font-size: .85rem; }
+@keyframes aparece { from { opacity: 0; transform: translateY(16px); } }
+
+/* Tarjeta sin portada */
+.card.vacia { color: var(--ink); background: repeating-linear-gradient(-45deg, var(--surface) 0 14px, var(--bg) 14px 28px); border: 1.5px dashed var(--line); }
+.card.vacia::after { display: none; }
+.card.vacia .meta { color: var(--muted); }
+.card.vacia .tag { background: var(--sky-soft); color: var(--ink); }
+.foto-falta { position: absolute; inset: 0 0 38%; display: grid; place-items: center; align-content: center; gap: 8px; color: var(--muted); font-size: .85rem; }
+.foto-falta svg { width: 40px; opacity: .6; }
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .card { aspect-ratio: 3 / 4; }
+  .card-body { padding: 12px; }
+  .card h3 { font-size: 1.05rem; }
+  .card .meta { flex-direction: column; align-items: flex-start; gap: 2px; font-size: .78rem; }
+  .card .ver { display: none; }
+  .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -4px; padding-inline: 4px; }
+  .chip { flex: 0 0 auto; }
+  .tag { top: 10px; left: 10px; font-size: .62rem; }
+  .foto-falta span { display: none; }
+}
+.vacio { padding: 60px 0; text-align: center; color: var(--muted); }
+
+/* Ficha emergente */
+dialog { width: min(960px, 100% - 24px); max-height: calc(100% - 24px); padding: 0; border: 0; border-radius: 20px; background: var(--surface); color: var(--ink); box-shadow: 0 40px 80px -30px rgba(0,0,0,.5); overflow: auto; }
+dialog::backdrop { background: var(--shade); backdrop-filter: blur(4px); }
+dialog[open] { animation: abre .28s var(--ease); }
+dialog[open]::backdrop { animation: fundido .3s ease; }
+@keyframes abre { from { opacity: 0; transform: translateY(12px) scale(.96); } }
+@keyframes fundido { from { opacity: 0; } }
+.cerrar { position: absolute; top: 12px; right: 12px; z-index: 2; width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgba(255,255,255,.92); color: #18272b; font-size: 1.3rem; line-height: 1; box-shadow: 0 4px 14px rgba(0,0,0,.2); }
+.galeria { position: relative; background: #0d1517; }
+.galeria .principal { width: 100%; aspect-ratio: 16 / 9; object-fit: contain; }
+.miniaturas { display: flex; gap: 8px; padding: 10px; overflow-x: auto; background: #0d1517; }
+.miniaturas button { flex: 0 0 auto; padding: 0; border: 2px solid transparent; border-radius: 8px; overflow: hidden; opacity: .55; transition: opacity .2s, border-color .2s; }
+.miniaturas button[aria-current="true"] { opacity: 1; border-color: var(--sun); }
+.miniaturas img { width: 84px; height: 56px; object-fit: cover; }
+.ficha { padding: clamp(20px, 4vw, 36px); display: grid; gap: 28px; }
+.ficha > * { min-width: 0; }
+.ficha-head { display: grid; gap: 8px; }
+.ficha-head h2 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 800; letter-spacing: -.025em; }
+.ficha-head .eyebrow { color: var(--sun); }
+.ficha-head p { margin: 0; color: var(--muted); max-width: 62ch; }
+.bloques { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 12px; }
+.bloque { min-width: 0; padding: 16px; border-radius: 12px; background: var(--bg); display: grid; gap: 6px; align-content: start; }
+.bloque h4 { margin: 0; font: 600 .74rem/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.bloque p { margin: 0; overflow-wrap: anywhere; }
+.bloque a { color: var(--sky); font-weight: 600; }
+.seccion h3 { font-size: 1.25rem; margin-bottom: 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.tabla { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font: 600 .74rem/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); background: var(--bg); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td small { color: var(--muted); display: block; }
+.precio { font: 700 1.05rem var(--display); color: var(--sun); }
+.servicios { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
+.servicios li { padding: .4em .85em; border-radius: 99px; background: var(--sky-soft); font-size: .9rem; }
+.nota { color: var(--muted); font-size: .85rem; margin: 0; }
+.seccion .nota { margin-top: 10px; }
+
+/* Conoce Camiri */
+.conoce { padding-block: 24px 72px; }
+.conoce-head { display: grid; gap: 10px; max-width: 40rem; margin-bottom: 24px; }
+.conoce-head .eyebrow { color: var(--sun); }
+.conoce-head h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -.025em; }
+.conoce-head p { margin: 0; color: var(--muted); }
+.bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(140px, 17vw, 210px); gap: 12px; }
+.bento figure { position: relative; margin: 0; overflow: hidden; border-radius: var(--r); background: var(--line); }
+.bento img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.bento figure:hover img { transform: scale(1.05); }
+.bento figcaption { position: absolute; left: 10px; bottom: 10px; padding: .35em .7em; border-radius: 99px; background: rgba(10, 20, 22, .72); color: #fff; font-size: .8rem; backdrop-filter: blur(6px); }
+.b1 { grid-column: span 2; grid-row: span 2; }
+.b2 { grid-row: span 2; }
+.b5 { grid-column: 4; grid-row: 1 / span 2; }
+.b3 { grid-column: 2 / -1; grid-row: 3; }
+.b3 img { object-position: center 20%; }
+.b4 { grid-column: 1; grid-row: 3; }
+@media (max-width: 760px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 150px; }
+  .bento figure { grid-column: auto !important; grid-row: auto !important; }
+  .b1, .b5 { grid-column: 1 / -1 !important; }
+  .b1 { grid-row: span 2 !important; }
+}
+.creditos { flex-basis: 100%; font-size: .78rem; }
+
+footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--muted); font-size: .9rem; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+footer strong { color: var(--ink); font-family: var(--display); }
+
+@media (max-width: 640px) {
+  .bloques { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .bloque { padding: 12px; }
+  th, td { padding: 10px; }
+  table { font-size: .88rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <img class="hero-fondo" src="img/camiri/ciudad.jpg" alt="">
+  <div class="wrap">
+    <div class="hero-texto">
+      <span class="eyebrow">Capital Petrolera de Bolivia</span>
+      <h1>Camiri <span>Hospedajes</span></h1>
+      <p>Hoteles, hostales y alojamientos de Camiri reunidos en un solo lugar. Compara habitaciones y precios, mira las fotos y contacta directo con el establecimiento.</p>
+      <div class="stats" id="stats"></div>
+    </div>
+    <div class="collage" aria-hidden="true">
+      <figure class="f1"><img src="img/camiri/torre-ypfb.jpg" alt=""><figcaption>Torre de YPFB</figcaption></figure>
+      <figure class="f2"><img src="img/camiri/vista-mirador.jpg" alt=""><figcaption>Vista desde el mirador</figcaption></figure>
+      <figure class="f3"><img src="img/camiri/atardecer.jpg" alt=""><figcaption>Atardecer en la serranía</figcaption></figure>
+    </div>
+  </div>
+</header>
+
+<nav class="barra" aria-label="Filtros">
+  <div class="wrap">
+    <label class="buscar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Buscar hospedaje o servicio (ej. garaje, desayuno)" aria-label="Buscar hospedaje">
+    </label>
+    <div class="chips" id="chips"></div>
+  </div>
+</nav>
+
+<main class="wrap" id="listado"></main>
+
+<section class="conoce">
+  <div class="wrap">
+    <div class="conoce-head">
+      <span class="eyebrow">Conoce Camiri</span>
+      <h2>Entre la serranía y el río Parapetí</h2>
+      <p>Ciudad del Chaco cruceño, cuna del petróleo boliviano y punto de paso hacia Sucre, Tarija y Santa Cruz.</p>
+    </div>
+    <div class="bento">
+      <figure class="b1"><img src="img/camiri/vista-mirador.jpg" alt="Vista de Camiri desde el mirador de YPFB" loading="lazy"><figcaption>Mirador de YPFB</figcaption></figure>
+      <figure class="b2"><img src="img/camiri/torre-ypfb.jpg" alt="Torre petrolera de YPFB y letras de Camiri" loading="lazy"><figcaption>Torre de YPFB</figcaption></figure>
+      <figure class="b3"><img src="img/camiri/san-francisco.jpg" alt="Monumento a San Francisco de Asís" loading="lazy"><figcaption>Mirador San Francisco de Asís</figcaption></figure>
+      <figure class="b4"><img src="img/camiri/chacarera.jpg" alt="Baile de chacarera en Camiri" loading="lazy"><figcaption>Chacarera chaqueña</figcaption></figure>
+      <figure class="b5"><img src="img/camiri/atardecer.jpg" alt="Atardecer sobre los cerros de Camiri" loading="lazy"><figcaption>Atardecer camireño</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span><strong>Camiri Hospedajes</strong> · Santa Cruz, Bolivia</span>
+    <span>Precios referenciales en bolivianos por noche, sujetos a cambio por cada establecimiento.</span>
+    <small class="creditos">Fotos de Camiri: Ariela2020, Ruditaly e Isapirua vía Wikimedia Commons (CC BY-SA 4.0 / CC BY 4.0).</small>
+  </div>
+</footer>
+
+<dialog id="ficha" aria-labelledby="ficha-titulo"></dialog>
+
+<script src="datos.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const icoFoto = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-8 7"/></svg>`;
+const bs = n => `Bs ${n.toLocaleString("es-BO")}`;
+const rango = r => r.precioMax ? `Bs ${r.precio}–${r.precioMax}` : bs(r.precio);
+const desde = h => h.habitaciones?.length ? Math.min(...h.habitaciones.map(x => x.precio)) : null;
+const catNombre = id => CATEGORIAS.find(c => c.id === id).nombre;
+const lista = [...HOSPEDAJES].sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
+let filtro = "todos";
+
+// Cifras de portada
+$("#stats").innerHTML = `
+  <div><b>${lista.length}</b>establecimientos</div>
+  <div><b>${lista.filter(h => h.habitaciones).length}</b>con tarifas</div>
+  <div><b>${bs(Math.min(...lista.filter(desde).map(desde)))}</b>precio desde</div>`;
+
+// Filtros
+$("#chips").innerHTML = [{ id: "todos", nombre: "Todos" }, ...CATEGORIAS]
+  .map(c => `<button class="chip" data-cat="${c.id}" aria-pressed="${c.id === filtro}">${c.nombre}</button>`).join("");
+$("#chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  filtro = b.dataset.cat;
+  document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === b));
+  render();
+  irAlListado();
+});
+$("#q").addEventListener("input", () => { render(); irAlListado(); });
+
+// Sube al inicio del listado, descontando la barra fija
+function irAlListado() {
+  const y = $("#listado").getBoundingClientRect().top + scrollY - $(".barra").offsetHeight;
+  if (Math.abs(scrollY - y) > 4) scrollTo({ top: y, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}
+
+function tarjeta(h, i) {
+  const precio = desde(h);
+  const media = h.portada
+    ? `<img src="${h.portada}" alt="" loading="lazy">`
+    : `<div class="foto-falta">${icoFoto}<span>Foto pendiente</span></div>`;
+  return `
+  <button class="card${h.portada ? "" : " vacia"}" style="--i:${i}" data-id="${h.id}">
+    ${media}
+    <span class="tag">${catNombre(h.categoria).split(" ")[0]}</span>
+    <div class="card-body">
+      ${h.estrellas ? `<span class="estrellas" aria-label="${h.estrellas} estrellas">${"★".repeat(h.estrellas)}</span>` : ""}
+      <h3>${h.nombre}</h3>
+      <div class="meta">
+        ${precio ? `<span class="desde">desde <b>${bs(precio)}</b></span>` : ""}<span class="ver">Ver ficha →</span>
+      </div>
+    </div>
+  </button>`;
+}
+
+function render() {
+  const q = $("#q").value.trim().toLowerCase();
+  const visibles = lista.filter(h =>
+    (filtro === "todos" || h.categoria === filtro) &&
+    (!q || [h.nombre, h.descripcion, ...(h.servicios || [])].join(" ").toLowerCase().includes(q)));
+  const html = CATEGORIAS.map(c => {
+    const g = visibles.filter(h => h.categoria === c.id);
+    if (!g.length) return "";
+    return `<section class="grupo" id="${c.id}">
+      <div class="grupo-head"><h2>${c.nombre}</h2><span>${g.length} ${g.length === 1 ? "lugar" : "lugares"}</span></div>
+      <div class="grid">${g.map(tarjeta).join("")}</div>
+    </section>`;
+  }).join("");
+  $("#listado").innerHTML = html || `<p class="vacio">No encontramos hospedajes con “${q}”.</p>`;
+}
+
+// Ficha emergente
+const dlg = $("#ficha");
+$("#listado").addEventListener("click", e => {
+  const c = e.target.closest(".card"); if (c) abrir(HOSPEDAJES.find(h => h.id === c.dataset.id));
+});
+dlg.addEventListener("click", e => { if (e.target === dlg || e.target.closest(".cerrar")) dlg.close(); });
+
+function abrir(h) {
+  const fotos = h.fotos || [];
+  const wa = h.whatsapp ? `https://wa.me/591${h.whatsapp.replace(/\D/g, "")}` : null;
+  // Un bloque solo se dibuja si tiene dato
+  const bloque = (titulo, v, link) => !v && !link ? "" :
+    `<div class="bloque"><h4>${titulo}</h4><p>${link ? `<a href="${link}" target="_blank" rel="noopener">${v || "Ver en Google Maps"}</a>` : v}</p></div>`;
+  const bloques = [
+    bloque("Ubicación", h.direccion, h.mapa),
+    bloque("Horarios", h.horarios),
+    bloque("Teléfono", h.telefono),
+    bloque("WhatsApp", h.whatsapp, wa)
+  ].join("");
+
+  dlg.innerHTML = `
+    <button class="cerrar" aria-label="Cerrar">×</button>
+    <div class="galeria">
+      ${fotos.length
+        ? `<img class="principal" src="${fotos[0]}" alt="${h.nombre}">
+           ${fotos.length > 1 ? `<div class="miniaturas">${fotos.map((f, i) => `<button data-src="${f}" aria-current="${i === 0}" aria-label="Foto ${i + 1}"><img src="${f}" alt=""></button>`).join("")}</div>` : ""}`
+        : ""}
+    </div>
+    <div class="ficha">
+      <div class="ficha-head">
+        <span class="eyebrow">${catNombre(h.categoria)}${h.estrellas ? ` · ${"★".repeat(h.estrellas)}` : ""}</span>
+        <h2 id="ficha-titulo">${h.nombre}</h2>
+        ${h.descripcion ? `<p>${h.descripcion}</p>` : ""}
+      </div>
+      ${bloques ? `<div class="bloques">${bloques}</div>` : ""}
+      ${h.habitaciones ? `<div class="seccion">
+        <h3>Habitaciones</h3>
+        <div class="tabla"><table>
+          <thead><tr><th>Tipo</th><th class="num">Pers.</th><th class="num">Noche</th></tr></thead>
+          <tbody>${h.habitaciones.map(r => `<tr><td>${r.tipo}<small>${r.camas}</small></td><td class="num">${r.capacidad}</td><td class="num"><span class="precio">${rango(r)}</span></td></tr>`).join("")}</tbody>
+        </table></div>
+        ${h.notaTarifas ? `<p class="nota">${h.notaTarifas}</p>` : ""}
+      </div>` : ""}
+      ${h.extras ? `<div class="seccion">
+        <h3>Recreación</h3>
+        <div class="tabla"><table>
+          <thead><tr><th>Servicio</th><th class="num">Precio</th></tr></thead>
+          <tbody>${h.extras.map(x => `<tr><td>${x.nombre}</td><td class="num"><span class="precio">${x.precio}</span></td></tr>`).join("")}</tbody>
+        </table></div>
+      </div>` : ""}
+      ${h.servicios ? `<div class="seccion">
+        <h3>Servicios</h3>
+        <ul class="servicios">${h.servicios.map(s => `<li>${s}</li>`).join("")}</ul>
+      </div>` : ""}
+      <p class="nota">Precios referenciales. Confirma disponibilidad y tarifa directamente con el establecimiento.</p>
+    </div>`;
+
+  dlg.querySelector(".miniaturas")?.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    dlg.querySelector(".principal").src = b.dataset.src;
+    dlg.querySelectorAll(".miniaturas button").forEach(x => x.setAttribute("aria-current", x === b));
+  });
+  dlg.showModal();
+  dlg.scrollTop = 0;
+}
+
+render();
+</script>
+
+</body>
+</html>
